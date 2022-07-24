@@ -1,8 +1,9 @@
 import React from "react"
-import DefaultLayout from "layouts/DefaultLayout"
+
 import Seo from "components/Seo"
 import { graphql, Link } from "gatsby"
 import parse from "html-react-parser"
+import DefaultLayout from "layouts/DefaultLayout"
 
 const PostList = ({
   data,

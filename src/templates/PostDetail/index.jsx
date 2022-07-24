@@ -1,9 +1,10 @@
 import React from "react"
+
+import Seo from "components/Seo"
 import { graphql, Link } from "gatsby"
 import { GatsbyImage } from "gatsby-plugin-image"
-import DefaultLayout from "layouts/DefaultLayout"
-import Seo from "components/Seo"
 import parse from "html-react-parser"
+import DefaultLayout from "layouts/DefaultLayout"
 
 const PostDetail = ({ data: { previous, next, post } }) => {
   const featuredImage = {

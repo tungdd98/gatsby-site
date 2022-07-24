@@ -1,7 +1,8 @@
 import React from "react"
+
+import { useStaticQuery, graphql } from "gatsby"
 import PropTypes from "prop-types"
 import { Helmet } from "react-helmet"
-import { useStaticQuery, graphql } from "gatsby"
 
 const Seo = ({ description, lang, meta, title }) => {
   const { wp, wpUser } = useStaticQuery(

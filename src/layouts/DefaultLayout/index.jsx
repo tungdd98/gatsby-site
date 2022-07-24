@@ -1,6 +1,7 @@
 import React from "react"
-import HeaderNavbar from "components/HeaderNavbar"
+
 import Footer from "components/Footer"
+import HeaderNavbar from "components/HeaderNavbar"
 import Seo from "components/Seo"
 
 const DefaultLayout = ({ children }) => {
