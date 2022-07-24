@@ -26,7 +26,11 @@ const PostList = ({
                 >
                   <header>
                     <h2 className="font-medium text-lg">
-                      <Link to={post.uri} itemProp="url">
+                      <Link
+                        to={post.uri}
+                        itemProp="url"
+                        className="hover:text-indigo-600 transition-colors"
+                      >
                         <span itemProp="headline">{parse(title)}</span>
                       </Link>
                     </h2>

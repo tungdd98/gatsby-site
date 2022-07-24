@@ -20,6 +20,8 @@ exports.createPages = async gatsbyUtilities => {
     return
   }
 
+  await createPostDetailPages({ posts, gatsbyUtilities })
+
   await createPostListPage({ posts, gatsbyUtilities })
 }
 
