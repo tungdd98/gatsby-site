@@ -1,8 +1,8 @@
 import React from "react"
 
+import PostItem from "components/PostItem"
 import Seo from "components/Seo"
 import { graphql, Link } from "gatsby"
-import parse from "html-react-parser"
 import DefaultLayout from "layouts/DefaultLayout"
 
 const PostList = ({
@@ -17,34 +17,9 @@ const PostList = ({
       <div className="py-4">
         {posts.length ? (
           <>
-            {posts.map(post => {
-              const title = post.title
-
-              return (
-                <article
-                  className="mb-3 p-3 shadow-md rounded-md hover:shadow-xl transition-shadow"
-                  key={post.uri}
-                >
-                  <header>
-                    <h2 className="font-medium text-lg">
-                      <Link
-                        to={post.uri}
-                        itemProp="url"
-                        className="hover:text-indigo-600 transition-colors"
-                      >
-                        <span itemProp="headline">{parse(title)}</span>
-                      </Link>
-                    </h2>
-                    <small className="text-slate-400 text-xs">
-                      {post.date}
-                    </small>
-                  </header>
-                  <section itemProp="description" className="text-sm">
-                    {parse(post.excerpt)}
-                  </section>
-                </article>
-              )
-            })}
+            {posts.map(post => (
+              <PostItem post={post} key={post.uri} />
+            ))}
 
             <div className="flex items-center text-sm mt-6">
               {previousPagePath && (

@@ -1,16 +1,24 @@
 import React from "react"
 
+import PostComment from "components/PostComment"
 import Seo from "components/Seo"
 import { graphql, Link } from "gatsby"
 import { GatsbyImage } from "gatsby-plugin-image"
 import parse from "html-react-parser"
 import DefaultLayout from "layouts/DefaultLayout"
 
-const PostDetail = ({ data: { previous, next, post } }) => {
+const PostDetail = props => {
+  const {
+    data: { previous, next, post },
+  } = props
+
   const featuredImage = {
     data: post.featuredImage?.node?.localFile?.childImageSharp?.gatsbyImageData,
     alt: post.featuredImage?.node?.alt || ``,
   }
+
+  const postComments = post.comments.nodes
+  console.log(postComments)
 
   return (
     <DefaultLayout>
@@ -29,7 +37,7 @@ const PostDetail = ({ data: { previous, next, post } }) => {
             <GatsbyImage
               image={featuredImage.data}
               alt={featuredImage.alt}
-              style={{ marginBottom: 50 }}
+              className="mb-10"
             />
           )}
         </header>
@@ -64,6 +72,20 @@ const PostDetail = ({ data: { previous, next, post } }) => {
           </li>
         </ul>
       </nav>
+
+      <section className="mt-5 w-1/2 mx-auto">
+        <div className="border-t-2 mb-5"></div>
+        <h5 className="text-lg mb-4">
+          {postComments.length} comments for "{post.title}"
+        </h5>
+        <ul className="list-none">
+          {postComments.map(comment => (
+            <li key={comment.id}>
+              <PostComment comment={comment} />
+            </li>
+          ))}
+        </ul>
+      </section>
     </DefaultLayout>
   )
 }
@@ -71,11 +93,7 @@ const PostDetail = ({ data: { previous, next, post } }) => {
 export default PostDetail
 
 export const pageQuery = graphql`
-  query BlogPostById(
-    $id: String!
-    $previousPostId: String
-    $nextPostId: String
-  ) {
+  query($id: String!, $previousPostId: String, $nextPostId: String) {
     post: wpPost(id: { eq: $id }) {
       id
       excerpt
@@ -92,6 +110,22 @@ export const pageQuery = graphql`
                 placeholder: TRACED_SVG
                 layout: FULL_WIDTH
               )
+            }
+          }
+        }
+      }
+      comments {
+        nodes {
+          id
+          date(formatString: "MMMM DD, YYYY")
+          content
+          author {
+            node {
+              avatar {
+                url
+              }
+              id
+              name
             }
           }
         }
